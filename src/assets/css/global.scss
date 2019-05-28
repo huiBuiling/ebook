@@ -1,0 +1,8 @@
+@import "./reset";
+
+$ratio: 375 / 10;
+
+// 处理字体
+@function px2rem($px){
+  @return $px / $ratio + rem
+}
