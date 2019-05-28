@@ -8,6 +8,27 @@
   </div>
 </template>
 
+<script>
+  import {mapGetters} from 'vuex'
+  export default {
+    computed: {
+      ...mapGetters(['test'])
+    },
+    mounted() {
+      this.$store.dispatch('setTest', 15).then(() =>{
+        console.log(this.test);
+      })
+    }
+  }
+  // 设置rem
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const html = document.querySelector('html')
+    let fontSize = window.innerWidth / 10
+    fontSize = fontSize > 50 ? 50 : fontSize
+    html.style.fontSize = fontSize + 'px'
+  })
+</script>
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

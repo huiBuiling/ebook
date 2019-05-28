@@ -13,10 +13,11 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  @import "../assets/css/global";
   .text{
     font-family: 'Days One';
-    font-size: 20px;
+    font-size: px2rem(10);
     color: red;
   }
 </style>
