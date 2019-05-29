@@ -1,4 +1,4 @@
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export const ebookMixin = {
   computed: {
@@ -6,6 +6,13 @@ export const ebookMixin = {
       'fileName',
       'titleVisible',
       'menuVisible'
+    ])
+  },
+  methods: {
+    ...mapActions([
+      'setFileName',
+      'setTitleVisible',
+      'setMenuVisible'
     ])
   }
 }

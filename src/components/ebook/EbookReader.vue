@@ -6,13 +6,13 @@
 
 <script>
   import Epub from 'epubjs'
-  import { ebookMixin } from "../../utils/mixin"
+  import { ebookMixin } from '../../utils/mixin'
   export default {
     name: 'EbookReader',
     mixins: [ebookMixin],
     mounted () {
       let fileName = this.$route.params.fileName
-      this.$store.dispatch('setFileName', fileName).then(() => {
+      this.setFileName(fileName).then(() => {
         this.initEpub()
       })
     },
@@ -72,13 +72,13 @@
       },
       hiddleTitleAndMenu () {
         // 隐藏title 和 menu
-        this.$store.dispatch('setTitleVisible', false)
-        this.$store.dispatch('setMenuVisible', false)
+        this.setTitleVisible(false)
+        this.setMenuVisible(false)
       },
       toggleTitleAndMenu () {
         // 显示/隐藏 title 和 menu
-        this.$store.dispatch('setTitleVisible', !this.titleVisible)
-        this.$store.dispatch('setMenuVisible', !this.menuVisible)
+        this.setTitleVisible(!this.titleVisible)
+        this.setMenuVisible(!this.menuVisible)
       }
     }
   }
