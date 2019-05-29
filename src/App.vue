@@ -1,27 +1,23 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import {mapGetters} from 'vuex'
+  import { mapGetters } from 'vuex'
   export default {
     computed: {
       ...mapGetters(['test'])
     },
-    mounted() {
-      this.$store.dispatch('setTest', 15).then(() =>{
+    mounted () {
+      /* this.$store.dispatch('setTest', 15).then(() =>{
         console.log(this.test);
-      })
+      }) */
     }
   }
   // 设置rem
-  document.addEventListener('DOMContentLoaded', ()=>{
+  document.addEventListener('DOMContentLoaded', () => {
     const html = document.querySelector('html')
     let fontSize = window.innerWidth / 10
     fontSize = fontSize > 50 ? 50 : fontSize
@@ -29,24 +25,11 @@
   })
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style lang="scss">
+  @import "./assets/css/global";
+  #app {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
 </style>
