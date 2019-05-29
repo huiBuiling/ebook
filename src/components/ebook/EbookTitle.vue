@@ -20,15 +20,10 @@
 </template>
 
 <script>
-  import Epub from 'epubjs'
-  import {mapGetters} from 'vuex'
+  import { ebookMixin } from "../../utils/mixin"
   export default {
     name: 'EbookTitle',
-    computed: {
-      ...mapGetters([
-        'titleVisible'
-      ])
-    }
+    mixins: [ebookMixin]
   }
 </script>
 

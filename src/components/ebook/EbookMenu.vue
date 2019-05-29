@@ -26,15 +26,10 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { ebookMixin } from "../../utils/mixin"
   export default {
     name: 'EbookMenu',
-    computed: {
-      ...mapGetters([
-        'menuVisible',
-        'settingVisible'
-      ])
-    }
+    mixins: [ebookMixin]
   }
 </script>
 

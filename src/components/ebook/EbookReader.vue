@@ -6,17 +6,10 @@
 
 <script>
   import Epub from 'epubjs'
-  import { mapGetters } from 'vuex'
+  import { ebookMixin } from "../../utils/mixin"
   export default {
     name: 'EbookReader',
-    computed: {
-      ...mapGetters([
-        'fileName',
-        'titleVisible',
-        'menuVisible',
-        'settingVisible'
-      ])
-    },
+    mixins: [ebookMixin],
     mounted () {
       let fileName = this.$route.params.fileName
       this.$store.dispatch('setFileName', fileName).then(() => {
@@ -67,19 +60,25 @@
         // 上一页
         if (this.rendition) {
           this.rendition.prev()
+          this.hiddleTitleAndMenu()
         }
       },
       nextPage () {
         // 上一页
         if (this.rendition) {
           this.rendition.next()
+          this.hiddleTitleAndMenu()
         }
       },
+      hiddleTitleAndMenu () {
+        // 隐藏title 和 menu
+        this.$store.dispatch('setTitleVisible', false)
+        this.$store.dispatch('setMenuVisible', false)
+      },
       toggleTitleAndMenu () {
-        // 显示title 和 menu
+        // 显示/隐藏 title 和 menu
         this.$store.dispatch('setTitleVisible', !this.titleVisible)
         this.$store.dispatch('setMenuVisible', !this.menuVisible)
-        this.$store.dispatch('setSettingVisible', !this.settingVisible)
       }
     }
   }
