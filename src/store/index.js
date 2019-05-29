@@ -5,7 +5,7 @@ import book from './modules/book'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-  modules:{
+  modules: {
     book
   },
   getters
