@@ -1,8 +1,7 @@
 <template>
   <div>
     <transition name="slide-up">
-      <!--:class="{'hide-box-shadow': !menuVisible || settingVisible >= 0}"-->
-      <div class="e-reader-menu" v-show="menuVisible">
+      <div class="e-reader-menu" v-show="menuVisible" :class="{'hide-box-shadow': !menuVisible || settingVisible >= 0}">
         <div class="icons">
           <span class="icon-menu" @click="showSetting(3)"></span>
         </div>
@@ -17,8 +16,7 @@
         </div>
       </div>
     </transition>
-    <!--<ebook-setting-font></ebook-setting-font>-->
-    <!--<ebook-setting-font-popup></ebook-setting-font-popup>-->
+    <setting-font></setting-font>
     <!--<ebook-setting-theme></ebook-setting-theme>-->
     <!--<ebook-setting-progess></ebook-setting-progess>-->
     <!--<ebook-slide></ebook-slide>-->
@@ -27,9 +25,18 @@
 
 <script>
   import { ebookMixin } from '../../utils/mixin'
+  import SettingFont from '../ebook_setting/SettingFont'
   export default {
     name: 'EbookMenu',
-    mixins: [ebookMixin]
+    components: {
+        SettingFont
+    },
+    mixins: [ebookMixin],
+      methods: {
+          showSetting (key) {
+              this.setSettingVisible(key)
+          }
+      }
   }
 </script>
 

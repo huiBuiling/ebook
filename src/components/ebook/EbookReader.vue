@@ -18,25 +18,26 @@
     },
     methods: {
       initEpub () {
-        const baseUrl = `http://172.22.2.100:1314/epub/Biomedicine/${this.fileName}.epub`
+        const baseUrl = `http://192.168.1.106:1314/epub/Biomedicine/${this.fileName}.epub`
         // 配置路径
         this.book = new Epub(baseUrl)
-
+        this.setCurrentBook(this.book)
         // 渲染
         this.rendition = this.book.renderTo('read', {
-          width: innerWidth,
-          hegith: innerHeight,
+          width: window.innerWidth,
+          height: window.innerHeight,
           methods: 'default'
         })
 
         // 显示
         this.rendition.display()
 
-        // 手势操作
+        // 手势操作start
         this.rendition.on('touchstart', event => {
           this.touchStartX = event.changedTouches[0].clientX
           this.touchStartTime = event.timeStamp
         }, false)
+        // 手势操作end
         this.rendition.on('touchend', event => {
           const offsetX = event.changedTouches[0].clientX - this.touchStartX
           const time = event.timeStamp - this.touchStartTime
@@ -55,28 +56,43 @@
           // event.preventDefault()
           // event.stopPropagation()
         }, false)
+
+        // 引入字体样式文件
+        // process.env.VEE_APP_RES_URL 变量对应.env.development
+        this.rendition.hooks.content.register(contents => {
+            Promise.all([
+                contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/daysOne.css`),
+                contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/cabin.css`),
+                contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/montserrat.css`),
+                contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/tangerine.css`)
+            ]).then(() => {})
+        })
       },
       prevPage () {
         // 上一页
         if (this.rendition) {
           this.rendition.prev()
-          this.hiddleTitleAndMenu()
+          this.hideTitleAndMenu()
         }
       },
       nextPage () {
         // 上一页
         if (this.rendition) {
           this.rendition.next()
-          this.hiddleTitleAndMenu()
+          this.hideTitleAndMenu()
         }
       },
-      hiddleTitleAndMenu () {
+      hideTitleAndMenu () {
         // 隐藏title 和 menu
         this.setTitleVisible(false)
         this.setMenuVisible(false)
+        this.setSettingVisible(-1)
       },
       toggleTitleAndMenu () {
         // 显示/隐藏 title 和 menu
+        if (this.menuVisible) {
+            this.setSettingVisible(-1)
+        }
         this.setTitleVisible(!this.titleVisible)
         this.setMenuVisible(!this.menuVisible)
       }
