@@ -7,6 +7,7 @@
 <script>
   import Epub from 'epubjs'
   import { ebookMixin } from '../../utils/mixin'
+  import { getFontFamily,saveFontFamily } from '../../utils/localStorage'
   export default {
     name: 'EbookReader',
     mixins: [ebookMixin],
@@ -18,7 +19,7 @@
     },
     methods: {
       initEpub () {
-        const baseUrl = `http://192.168.1.106:1314/epub/Biomedicine/${this.fileName}.epub`
+        const baseUrl = `${process.env.VUE_APP_RES_URL}/epub/Statistics/${this.fileName}.epub`
         // 配置路径
         this.book = new Epub(baseUrl)
         this.setCurrentBook(this.book)
@@ -30,7 +31,17 @@
         })
 
         // 显示
-        this.rendition.display()
+        this.rendition.display().then(() => {
+          let font = getFontFamily(this.fileName)
+          let fontSize = getFontFamily(this.fileName)
+          console.log(fontSize);
+          if(!font){
+            saveFontFamily(this.fileName, this.defaultFontFamily)
+          }else{
+            this.rendition.themes.font(font)
+            this.setDefaultFontFamily(font)
+          }
+        })
 
         // 手势操作start
         this.rendition.on('touchstart', event => {
