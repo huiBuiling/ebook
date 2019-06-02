@@ -1,6 +1,6 @@
 <template>
   <transition name="slide-down">
-    <div class="e-reader-title" v-show="titleVisible">
+    <div class="title-wrapper" v-show="titleVisible">
       <div class="e-title-l">
         <span class="icon icon-back"></span>
       </div>
@@ -29,7 +29,7 @@
 
 <style scoped lang="scss">
   @import "../../assets/css/global";
-  .e-reader-title {
+  .title-wrapper {
     position: absolute;
     top: 0;
     left: 0;

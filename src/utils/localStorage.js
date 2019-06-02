@@ -88,7 +88,7 @@ export function getFontSize (fileName) {
 /**
  * @author hui
  * @date 2019/5/31
- * @Description: 保存，获取：
+ * @Description: 保存，获取：默认源（语言）
  */
 export function saveLocale (locale) {
   return setLocalStorage('locale', locale)

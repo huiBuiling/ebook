@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import en from './en'
 import cn from './cn'
+import { getLocale, saveLocale } from '../utils/localStorage'
 
 Vue.use(VueI18n)
 
@@ -11,7 +12,12 @@ const messages = {
 }
 
 // 创建默认源
-const locale = 'cn'
+let locale = getLocale()
+if (!locale) {
+  locale = 'cn'
+  saveLocale(locale)
+}
+
 const i18n = new VueI18n({
   locale,
   messages

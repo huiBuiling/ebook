@@ -7,7 +7,12 @@
 <script>
   import Epub from 'epubjs'
   import { ebookMixin } from '../../utils/mixin'
-  import { getFontFamily, saveFontFamily, getFontSize, saveFontSize } from '../../utils/localStorage'
+  import {
+    getFontFamily, saveFontFamily,
+    getFontSize, saveFontSize,
+    getTheme, saveTheme
+  } from '../../utils/localStorage'
+  import { addCss } from "../../utils/book"
   export default {
     name: 'EbookReader',
     mixins: [ebookMixin],
@@ -19,7 +24,7 @@
     },
     methods: {
       initEpub () {
-        const baseUrl = `${process.env.VUE_APP_RES_URL}/epub/Biomedicine/${this.fileName}.epub`
+        const baseUrl = `${process.env.VUE_APP_RES_URL}/epub/325/${this.fileName}.epub`
         // 配置路径
         this.book = new Epub(baseUrl)
         this.setCurrentBook(this.book)
@@ -32,20 +37,10 @@
 
         // 显示
         this.rendition.display().then(() => {
-          let font = getFontFamily(this.fileName)
-          let fontSize = getFontSize(this.fileName)
-          console.log(fontSize)
-          if (!font) {
-            saveFontFamily(this.fileName, this.defaultFontFamily)
-            saveFontSize(this.fileName, this.defaultFontSize)
-          } else {
-            //  设置存储字体
-            this.rendition.themes.font(font)
-            this.setDefaultFontFamily(font)
-            //  设置存储字体大小
-            this.rendition.themes.fontSize(fontSize + 'px')
-            this.setDefaultFontSize(fontSize)
-          }
+          this.initTheme()
+          this.initFont()
+          this.initFontSize()
+          this.initGlobalCss()
         })
 
         // 手势操作start
@@ -83,6 +78,62 @@
                 contents.addStylesheet(`${process.env.VUE_APP_RES_URL}/fonts/tangerine.css`)
             ]).then(() => {})
         })
+      },
+      initTheme () {
+        // 初始化主题
+        let theme = getTheme(this.fileName)
+        if (!theme) {
+          saveTheme(this.fileName, this.defaultTheme)
+        }
+        this.setDefaultTheme(theme)
+        // 注册theme属性
+        this.themeList.forEach(theme => {
+          this.rendition.themes.register(theme.name, theme.style)
+        })
+
+        this.rendition.themes.select(this.defaultTheme)
+      },
+      initGlobalCss () {
+        // 初始化样式css文件
+        switch (this.defaultTheme) {
+          case 'Default':
+            addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_default.css`)
+            break
+          case 'Gold':
+            addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_gold.css`)
+            break
+          case 'Eye':
+            addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_eye.css`)
+            break
+          case 'Night':
+            addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_night.css`)
+            break
+          default:
+            addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_default.css`)
+            break
+        }
+      },
+      initFontSize () {
+          // 初始化字体大小
+          let fontSize = getFontSize(this.fileName)
+          if (!fontSize) {
+              saveFontSize(this.fileName, this.defaultFontSize)
+          } else {
+              //  设置存储字体大小
+              this.rendition.themes.fontSize(fontSize + 'px')
+              this.setDefaultFontSize(fontSize)
+          }
+      },
+      initFont () {
+          // 初始化字体
+          let font = getFontFamily(this.fileName)
+          if (!font) {
+              saveFontFamily(this.fileName, this.defaultFontFamily)
+          } else {
+              //  设置存储字体
+              this.rendition.themes.font(font)
+              this.setDefaultFontFamily(font)
+          }
       },
       prevPage () {
         // 上一页
