@@ -7,7 +7,7 @@
 <script>
   import Epub from 'epubjs'
   import { ebookMixin } from '../../utils/mixin'
-  import { getFontFamily,saveFontFamily } from '../../utils/localStorage'
+  import { getFontFamily, saveFontFamily, getFontSize, saveFontSize } from '../../utils/localStorage'
   export default {
     name: 'EbookReader',
     mixins: [ebookMixin],
@@ -19,7 +19,7 @@
     },
     methods: {
       initEpub () {
-        const baseUrl = `${process.env.VUE_APP_RES_URL}/epub/Statistics/${this.fileName}.epub`
+        const baseUrl = `${process.env.VUE_APP_RES_URL}/epub/Biomedicine/${this.fileName}.epub`
         // 配置路径
         this.book = new Epub(baseUrl)
         this.setCurrentBook(this.book)
@@ -33,13 +33,18 @@
         // 显示
         this.rendition.display().then(() => {
           let font = getFontFamily(this.fileName)
-          let fontSize = getFontFamily(this.fileName)
-          console.log(fontSize);
-          if(!font){
+          let fontSize = getFontSize(this.fileName)
+          console.log(fontSize)
+          if (!font) {
             saveFontFamily(this.fileName, this.defaultFontFamily)
-          }else{
+            saveFontSize(this.fileName, this.defaultFontSize)
+          } else {
+            //  设置存储字体
             this.rendition.themes.font(font)
             this.setDefaultFontFamily(font)
+            //  设置存储字体大小
+            this.rendition.themes.fontSize(fontSize + 'px')
+            this.setDefaultFontSize(fontSize)
           }
         })
 
