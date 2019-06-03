@@ -12,7 +12,7 @@
     getFontSize, saveFontSize,
     getTheme, saveTheme
   } from '../../utils/localStorage'
-  import { addCss } from "../../utils/book"
+  import { addCss } from '../../utils/book'
   export default {
     name: 'EbookReader',
     mixins: [ebookMixin],

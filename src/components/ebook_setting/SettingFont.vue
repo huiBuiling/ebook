@@ -2,9 +2,6 @@
   <transition name="slide-up">
       <div class="setting-wrapper" v-show="menuVisible && settingVisible === 0">
         <div class="setting-font-size">
-          <!--<div class="preview" ref="left">
-            <span :style="styleLeft" ref="leftText">A</span>
-          </div>-->
           <div class="preview" :style="{fontSize:fontSizeList[0].fontSize + 'px'}">A</div>
           <div class="select">
             <div class="select-wrapper" v-for="(item, index) in fontSizeList" :key="index"
@@ -18,9 +15,6 @@
               <div class="line"></div>
             </div>
           </div>
-          <!--<div class="preview" ref="right">
-            <span :style="styleRight" ref="rightText">A</span>
-          </div>-->
           <div class="preview" :style="{fontSize:fontSizeList[6].fontSize + 'px'}">A</div>
         </div>
         <div class="setting-font-family">
@@ -58,7 +52,6 @@
           this.setDefaultFontSize(fontSize)
           this.currentBook.rendition.themes.fontSize(fontSize + 'px')
           saveFontSize(this.fileName, fontSize)
-
         },
         // 显示字体类型
         showFontFamilyPopup () {
