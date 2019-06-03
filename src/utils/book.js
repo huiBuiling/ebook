@@ -26,8 +26,8 @@ export function themeList (vue) {
       name: 'Default',
       style: {
         body: {
-          'color': '#4c5059',
-          'background': '#cecece'
+          'color': '#666666',
+          'background': '#ECF6FF'
         }
       }
     },
@@ -57,7 +57,7 @@ export function themeList (vue) {
       style: {
         body: {
           'color': '#cecece',
-          'background': '#000000'
+          'background': '#383C4A'
         }
       }
     }

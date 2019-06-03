@@ -16,9 +16,15 @@
         </div>
       </div>
     </transition>
+
+    <!--字体-->
     <setting-font />
+
+    <!--主题-->
     <setting-theme />
-    <!--<ebook-setting-progess></ebook-setting-progess>-->
+
+    <!--进度-->
+    <setting-progress />
     <!--<ebook-slide></ebook-slide>-->
   </div>
 </template>
@@ -27,11 +33,13 @@
   import { ebookMixin } from '../../utils/mixin'
   import SettingFont from '../ebook_setting/SettingFont'
   import SettingTheme from '../ebook_setting/SettingTheme'
+  import SettingProgress from '../ebook_setting/SettingProgress'
   export default {
     name: 'EbookMenu',
     components: {
       SettingFont,
-      SettingTheme
+      SettingTheme,
+      SettingProgress
     },
     mixins: [ebookMixin],
       methods: {

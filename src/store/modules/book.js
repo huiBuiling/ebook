@@ -1,5 +1,6 @@
 const book = {
   state: {
+    // 书名
     fileName: '',
     titleVisible: false,
     menuVisible: false,
@@ -11,13 +12,20 @@ const book = {
      * 3：目录
     */
     settingVisible: -1,
+    // 默认字体
     defaultFontSize: 12,
+    // 默认字体类型
     defaultFontFamily: 'Default',
     fontFamilyVisible: false,
+    // 默认主题
     defaultTheme: 'Default',
+    // 进度条是否可读，即是否分页
     bookAvailable: false,
+    // 进度条
     progress: 0,
+    // 进度条
     section: 0,
+    // 分页
     isPaginating: true,
     currentBook: null,
     navigation: null,
@@ -26,6 +34,7 @@ const book = {
     paginate: '',
     pagelist: null,
     offsetY: 0,
+    // 书签
     isBookmark: null
   },
   mutations: {

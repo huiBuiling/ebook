@@ -101,7 +101,7 @@ export function getLocale () {
 /**
  * @author hui
  * @date 2019/5/31
- * @Description: 保存，获取：
+ * @Description: 保存，获取：位置
  */
 export function saveLocation (fileName, location) {
   setBookObject(fileName, 'location', location)
@@ -114,7 +114,7 @@ export function getLocation (fileName) {
 /**
  * @author hui
  * @date 2019/5/31
- * @Description: 保存，获取：
+ * @Description: 保存，获取：书签
  */
 export function saveBookmark (fileName, bookmark) {
   setBookObject(fileName, 'bookmark', bookmark)
@@ -127,7 +127,7 @@ export function getBookmark (fileName) {
 /**
  * @author hui
  * @date 2019/5/31
- * @Description: 保存，获取：
+ * @Description: 保存，获取：阅读时间
  */
 export function saveReadTime (fileName, theme) {
   setBookObject(fileName, 'time', theme)
