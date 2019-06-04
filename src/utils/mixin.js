@@ -93,14 +93,14 @@ export const ebookMixin = {
         this.currentBook.rendition.display(target).then(() => {
           this.refreshLocation()
           // 存在回调则直接调用
-          if(cb) cb()
+          if (cb) cb()
         })
-      }else{
+      } else {
         this.currentBook.rendition.display().then(() => {
           this.refreshLocation()
-          if(cb) cb()
+          if (cb) cb()
         })
       }
-    },
+    }
   }
 }

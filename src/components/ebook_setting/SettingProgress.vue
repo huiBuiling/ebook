@@ -39,12 +39,11 @@
    * @Description: 进度
   */
   import { ebookMixin } from '../../utils/mixin'
-  import { saveProgress } from '../../utils/localStorage'
   export default {
     name: 'SettingProgress',
     mixins: [ebookMixin],
     computed: {
-      // 获取当前目录
+      // 获取当前章目
       getSectionName () {
         if (this.section) {
           const sectionInfo = this.currentBook.section(this.section)
@@ -74,9 +73,6 @@
       // 进度条显示状态
       displayProgress () {
         const cfi = this.currentBook.locations.cfiFromPercentage(this.progress / 100)
-        /*this.currentBook.rendition.display(cfi).then(() => {
-          this.refreshLocation()
-        })*/
         this.display(cfi)
       },
       // 更新已读进度背景色变化
@@ -118,7 +114,7 @@
 
   .setting-wrapper {
     position: absolute;
-    bottom: px2rem(48);
+    bottom: px2rem(47);
     left: 0;
     z-index: 160;
     width: 100%;

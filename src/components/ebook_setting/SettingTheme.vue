@@ -41,7 +41,7 @@
 
   .setting-wrapper {
     position: absolute;
-    bottom: px2rem(48);
+    bottom: px2rem(47);
     left: 0;
     z-index: 160;
     width: 100%;
