@@ -3,7 +3,7 @@
     <div class="setting-wrapper" v-show="menuVisible && settingVisible === 2">
       <div class="setting-progress">
         <div class="read-time-wrapper">
-          <!--<span class="read-time-text">{{getReadTimeText()}}</span>-->
+          <span class="read-time-text">{{getReadTimeText}}</span>
           <span class="icon-forward"></span>
         </div>
         <div class="progress-wrapper">
@@ -39,6 +39,7 @@
    * @Description: 进度
   */
   import { ebookMixin } from '../../utils/mixin'
+  import { getReadTimeByMinute } from '../../utils/book'
   export default {
     name: 'SettingProgress',
     mixins: [ebookMixin],
@@ -52,6 +53,10 @@
           }
         }
         return ''
+      },
+      // 获取阅读时间
+      getReadTimeText () {
+        return this.$t('book.haveRead').replace('$1', getReadTimeByMinute(this.fileName))
       }
     },
     methods: {

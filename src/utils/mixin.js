@@ -81,11 +81,13 @@ export const ebookMixin = {
     // 刷新位置
     refreshLocation () {
       const curLocation = this.currentBook.rendition.currentLocation()
-      const startCfi = curLocation.start.cfi
-      const curProgress = this.currentBook.locations.percentageFromCfi(startCfi)
-      this.setProgress(Math.floor(curProgress * 100))
-      this.setSection(curLocation.start.index)
-      saveLocation(this.fileName, startCfi)
+      if (curLocation && curLocation.start) {
+        const startCfi = curLocation.start.cfi
+        const curProgress = this.currentBook.locations.percentageFromCfi(startCfi)
+        this.setProgress(Math.floor(curProgress * 100))
+        this.setSection(curLocation.start.index)
+        saveLocation(this.fileName, startCfi)
+      }
     },
     // 显示渲染
     display (target, cb) {
