@@ -175,12 +175,6 @@
           this.hideTitleAndMenu()
         }
       },
-      // 隐藏title 和 menu
-      hideTitleAndMenu () {
-        this.setTitleVisible(false)
-        this.setMenuVisible(false)
-        this.setSettingVisible(-1)
-      },
       // 显示/隐藏 title 和 menu
       toggleTitleAndMenu () {
         if (this.menuVisible) {

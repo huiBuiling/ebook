@@ -95,7 +95,7 @@ export function removeAllCss () {
 }
 
 // 阅读时间（分钟）
-export function getReadTimeByMinute(fileName) {
+export function getReadTimeByMinute (fileName) {
   const readTime = getReadTime(fileName)
   if (!readTime) {
     return 0

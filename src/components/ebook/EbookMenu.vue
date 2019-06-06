@@ -25,7 +25,9 @@
 
     <!--进度-->
     <setting-progress />
-    <!--<ebook-slide></ebook-slide>-->
+
+    <!--侧边栏：目录 | 书签-->
+    <ebook-slider />
   </div>
 </template>
 
@@ -34,12 +36,14 @@
   import SettingFont from '../ebook_setting/SettingFont'
   import SettingTheme from '../ebook_setting/SettingTheme'
   import SettingProgress from '../ebook_setting/SettingProgress'
+  import EbookSlider from '../ebook_slider/EbookSlider'
   export default {
     name: 'EbookMenu',
     components: {
       SettingFont,
       SettingTheme,
-      SettingProgress
+      SettingProgress,
+      EbookSlider
     },
     mixins: [ebookMixin],
       methods: {

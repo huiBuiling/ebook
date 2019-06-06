@@ -23,7 +23,7 @@
     methods: {
       startLoopReadTime () {
       let readTime = getReadTime(this.fileName)
-      if(!readTime){
+      if (!readTime) {
         readTime = 0
       }
 
@@ -42,7 +42,7 @@
     },
     beforeDestroy () {
       // 销毁前关闭定时器
-      if(this.task) {
+      if (this.task) {
         clearInterval(this.task)
       }
     }

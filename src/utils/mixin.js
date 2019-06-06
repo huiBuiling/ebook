@@ -33,7 +33,7 @@ export const ebookMixin = {
   },
   methods: {
     ...mapActions([
-      'setFileName',
+      'setCurrentSong',
       'setTitleVisible',
       'setMenuVisible',
       'setSettingVisible',
@@ -103,6 +103,12 @@ export const ebookMixin = {
           if (cb) cb()
         })
       }
+    },
+    // 隐藏title 和 menu
+    hideTitleAndMenu () {
+      this.setTitleVisible(false)
+      this.setMenuVisible(false)
+      this.setSettingVisible(-1)
     }
   }
 }
