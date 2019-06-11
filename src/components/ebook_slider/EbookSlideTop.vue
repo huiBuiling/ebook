@@ -16,8 +16,9 @@
       <div class="page-top-con-l">
         <img :src="cover" :alt="fileName">
       </div>
-      <div class="page-top-con-c">
-        <p>{{fileName}}</p>
+      <div class="page-top-con-c" v-if="metadata">
+        <p class="e-title">{{metadata.title}}</p>
+        <p class="e-creator">{{metadata.creator}}</p>
       </div>
       <div class="page-top-con-r">
         <p>已读{{progress}}%</p>
@@ -104,7 +105,6 @@
       width: 100%;
       height: px2rem(80);
       display: flex;
-      font-size: px2rem(14);
       align-items: center;
       .page-top-con-l{
         margin-left: px2rem(10);
@@ -116,17 +116,27 @@
       }
       .page-top-con-c{
         flex: 1;
-        padding: 0 px2rem(10);
-        p{
-          word-break: break-all;
-          line-height: px2rem(18);
+        padding: 0 px2rem(7);
+        width: calc(100% - #{px2rem(173)});
+        .e-title{
+          @include ellipsis;
+          font-size: px2rem(14);
+          margin-bottom: px2rem(7);
+        }
+        .e-creator{
+          line-height: px2rem(14);
+          font-size: px2rem(12);
+          &:last-child{
+            @include ellipsis2(2);
+          }
         }
       }
       .page-top-con-r{
         margin-right: px2rem(10);
-        flex: 0 0 px2rem(100);
+        flex: 0 0 px2rem(75);
         p {
-          width: px2rem(100);
+          width: px2rem(75);
+          font-size: px2rem(12);
           white-space: nowrap;
           line-height: px2rem(20);
         }
