@@ -67,6 +67,7 @@
 
   .content-page-top{
     width: 100%;
+    height: px2rem(120);
     border-bottom: 1px solid #ddd;
     .page-top-search{
       padding: px2rem(5);

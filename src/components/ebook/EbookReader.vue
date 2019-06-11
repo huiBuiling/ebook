@@ -7,6 +7,7 @@
 <script>
   import Epub from 'epubjs'
   import { ebookMixin } from '../../utils/mixin'
+  import { flatten } from '../../utils/book'
   import {
     getFontFamily, saveFontFamily,
     getFontSize, saveFontSize,
@@ -33,20 +34,25 @@
 
         this.initRendition()
         this.initGesture()
+        this.initParseBook()
 
         // 分页
         this.book.ready.then(() => {
+          // 获取目录
+          // this.navigation = self.book.navigation
+          // console.log(self.book.navigation)
+          // 生成Locations对象
           return this.book.locations.generate(750 * (window.innerWidth / 375) * (getFontSize(this.fileName) / 16))
         }).then(location => {
-          // console.log(location)
-          // 分页成功，设置进度条可读
+          // 标记电子书为解析完毕状态
           this.setBookAvailable(true)
+
           this.refreshLocation()
         })
       },
       // 初始化渲染
       initRendition () {
-        // 渲染
+        // 生成Rendition对象
         this.rendition = this.book.renderTo('read', {
           width: window.innerWidth,
           height: window.innerHeight,
@@ -55,6 +61,7 @@
 
         // 显示及location载入
         const location = getLocation(this.fileName)
+        // 渲染电子书
         this.display(location, () => {
           this.initTheme()
           this.initFont()
@@ -100,6 +107,36 @@
           // event.preventDefault()
           // event.stopPropagation()
         }, false)
+      },
+      // 初始化获取：图书封面及基本信息
+      initParseBook () {
+        // 封面图片获取
+        this.book.loaded.cover.then(cover => {
+          // 完整url:blob
+          this.book.archive.createUrl(cover).then(url => {
+            this.setCover(url)
+          })
+
+          // 书名及作者
+          this.book.loaded.metadata.then(metadata => {
+            this.setMetadata(metadata)
+          })
+
+          // 目录获取
+          this.book.loaded.navigation.then(nav => {
+            // this.setNavigation(nav.toc)
+            const navItem = flatten(nav.toc)
+
+            function find(item, level = 0) {
+              return !item.parent ? level : find(navItem.filter(parentItem => parentItem.id === item.parent)[0], ++level)
+            }
+
+            navItem.forEach(item => {
+              item.level = find(item)
+            })
+            this.setNavigation(navItem)
+          })
+        })
       },
       // 初始化主题
       initTheme () {

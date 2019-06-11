@@ -103,3 +103,8 @@ export function getReadTimeByMinute (fileName) {
     return Math.ceil(readTime / 60)
   }
 }
+
+// 转换目录 navigation
+export function flatten(array) {
+  return [].concat(...array.map(item => [].concat(item, ...flatten(item.subitems))))
+}

@@ -5,15 +5,21 @@
         <div class="content" v-if="settingVisible === 3">
           <div class="content-page-wrapper">
             <!--内容-->
-            <div class="content-page"></div>
+            <div class="content-page">
+              <ebook-catalog v-show="currentTab === 1" />
+            </div>
 
             <!--tab:目录 | 书签-->
             <div class="content-page-tab">
               <div class="content-page-tab-item"
-                   :class="{'selected': currentTab === 1}">
+                   :class="{'selected': currentTab === 1}"
+                   @click="changeTab(1)"
+              >
                 {{$t('book.navigation')}}</div>
               <div class="content-page-tab-item"
-                   :class="{'selected': currentTab === 2}">
+                   :class="{'selected': currentTab === 2}"
+                   @click="changeTab(2)"
+              >
                 {{$t('book.bookmark')}}</div>
             </div>
           </div>
@@ -31,13 +37,22 @@
    * @date 2019/6/4
    * @Description: 侧边栏
   */
+  import EbookCatalog from './EbookCatalog'
   import { ebookMixin } from '../../utils/mixin'
   export default {
     name: 'EbookSlider',
+    components: {
+      EbookCatalog
+    },
     mixins: [ ebookMixin ],
     data () {
       return {
         currentTab: 1
+      }
+    },
+    methods: {
+      changeTab (val) {
+        this.currentTab = val
       }
     }
   }
@@ -66,6 +81,7 @@
         .content-page{
           flex: 1;
           width: 100%;
+          height: calc(100% - #{px2rem(48)});
           overflow: hidden;
         }
         .content-page-tab{

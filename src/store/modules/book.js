@@ -1,5 +1,7 @@
 const book = {
   state: {
+    // 书籍对象
+    currentBook: null,
     // 书名
     fileName: '',
     titleVisible: false,
@@ -11,7 +13,7 @@ const book = {
      * 2：进度
      * 3：目录
     */
-    settingVisible: -1,
+    settingVisible: 3,
     // 默认字体
     defaultFontSize: 12,
     // 默认字体类型
@@ -23,13 +25,15 @@ const book = {
     bookAvailable: false,
     // 进度条
     progress: 0,
-    // 进度条
+    // 章节
     section: 0,
     // 分页
     isPaginating: true,
-    currentBook: null,
+    // 目录
     navigation: null,
+    // 封面图片路径
     cover: null,
+    // 书名及作者
     metadata: null,
     paginate: '',
     pagelist: null,

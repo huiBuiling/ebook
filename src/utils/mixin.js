@@ -53,7 +53,8 @@ export const ebookMixin = {
       'setPaginate',
       'setPagelist',
       'setOffsetY',
-      'setIsBookmark'
+      'setIsBookmark',
+      'setFileName'
     ]),
     initGlobalCss () {
       // 删除全部样式
@@ -84,8 +85,11 @@ export const ebookMixin = {
       if (curLocation && curLocation.start) {
         const startCfi = curLocation.start.cfi
         const curProgress = this.currentBook.locations.percentageFromCfi(startCfi)
+        // 设置进度
         this.setProgress(Math.floor(curProgress * 100))
+        // 设置章节
         this.setSection(curLocation.start.index)
+        // 存储地址
         saveLocation(this.fileName, startCfi)
       }
     },
