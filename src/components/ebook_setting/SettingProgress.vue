@@ -46,13 +46,8 @@
     computed: {
       // 获取当前章目
       getSectionName () {
-        if (this.section) {
-          const sectionInfo = this.currentBook.section(this.section)
-          if (sectionInfo && sectionInfo.href && this.currentBook && this.currentBook.navigation) {
-            return this.currentBook.navigation.get(sectionInfo.href).label
-          }
-        }
-        return ''
+        // 获取多级目录
+        return this.section ? this.navigation[this.section].label : ''
       },
       // 获取阅读时间
       getReadTimeText () {
