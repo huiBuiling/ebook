@@ -3,16 +3,19 @@
     <div class="page-top-search">
       <div>
         <i class="icon-search"/>
+
+        <!--@change="onSearch"-->
         <input
           type="text"
           v-model="value"
           :placeholder="$t('book.searchHint')"
           @click="showCancel"
+          @keyup.enter.exact="onSearch"
         />
       </div>
       <span v-show="searchVisible" class="cancal" @click="hideCancel">{{$t('book.cancel')}}</span>
     </div>
-    <div class="page-top-con">
+    <div class="page-top-con" v-show="!searchVisible">
       <div class="page-top-con-l">
         <img :src="cover" :alt="fileName">
       </div>
@@ -45,18 +48,42 @@
         return this.$t('book.haveRead').replace('$1', getReadTimeByMinute(this.fileName))
       }
     },
+    props: {
+      searchVisible: Boolean,
+      searchResult: Array
+    },
     data () {
       return {
-        value: '',
-        searchVisible: false
+        value: 'computer',
+        // searchVisible: false,
+        // searchResult: []
       }
     },
     methods: {
       showCancel () {
-        this.searchVisible = true
+        this.$emit('visible', true)
       },
       hideCancel () {
-        this.searchVisible = false
+        this.$emit('visible', false)
+      },
+      // 搜索
+      onSearch () {
+        if(this.value && this.value.length > 0) {
+          this.doSearch(this.value).then(result => {
+            console.log(result)
+            this.$emit('result', result)
+          })
+        }
+      },
+      // epub全文搜索
+      doSearch (q) {
+        return Promise.all(
+          this.currentBook.spine.spineItems.map(item =>
+            item.load(this.currentBook.load.bind(this.currentBook))
+              .then(item.find.bind(item, q))
+              // 释放内存
+              .finally(item.unload.bind(item)))
+        ).then(results => Promise.resolve([].concat.apply([], results)))
       }
     }
   }
@@ -67,7 +94,7 @@
 
   .content-page-top{
     width: 100%;
-    height: px2rem(120);
+    max-height: px2rem(120);
     border-bottom: 1px solid #ddd;
     .page-top-search{
       padding: px2rem(5);
@@ -84,8 +111,9 @@
         height: px2rem(30);
         i{
           flex: 1;
-          font-size: px2rem(18);
+          font-size: px2rem(10);
           margin-left: px2rem(5);
+          vertical-align: middle;
         }
         input{
           flex: 1;
@@ -95,6 +123,7 @@
           -webkit-appearance: none;
           outline: none;
           margin-left: px2rem(10);
+          color: #959B9C;
         }
       }
       .cancal{

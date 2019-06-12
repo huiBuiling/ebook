@@ -1,10 +1,27 @@
 <template>
   <div class="slide-catalog">
-    <ebook-slider-top />
-    <div class="slide-catalog-con">
+    <!--搜索头-->
+    <ebook-slider-top
+      :searchVisible="searchVisible"
+      :searchResult="searchResult"
+      @visible="changeSearchVisible"
+      @result="changeSearchResult"
+    />
+
+    <!--目录-->
+    <div class="slide-catalog-con" v-show="!searchVisible">
       <ul>
         <li v-for="(item, index) in navigation" :key="index" :style="{'padding-left': item.parent !== undefined ? `${item.level * 15}px` : 0}">
-          <p @click="goBook(item.href, index)" :class="{selected: section === index}">{{item.label}}</p>
+          <p @click="goBook(item.href, -1)" :class="{selected: section === index}">{{item.label}}</p>
+        </li>
+      </ul>
+    </div>
+
+    <!--搜索结果-->
+    <div class="slide-search-con" v-show="searchVisible">
+      <ul>
+        <li v-for="(item, index) in searchResult" :key="index">
+          <p @click="goBook(item.cfi, index)" :class="{selected: currentLi === index}">{{item.excerpt}}</p>
         </li>
       </ul>
     </div>
@@ -27,21 +44,29 @@
     mixins: [ebookMixin],
     data () {
       return {
-        currentLi: -1
+        currentLi: -1,
+        searchVisible: false,
+        searchResult: []
       }
     },
     methods: {
       // 跳转到指定章节
-      goBook (href, index, highlight = false) {
-        console.log(index)
-        console.log(this.section);
-        this.currentLi = index
+      goBook (href, index, highlight = true) {
+        if(index >= 0){
+          this.currentLi = index
+        }
         this.display(href, () => {
           this.hideTitleAndMenu()
           if (highlight) {
             this.currentBook.rendition.annotations.highlight(href)
           }
         })
+      },
+      changeSearchVisible (visible) {
+        this.searchVisible = visible
+      },
+      changeSearchResult (val) {
+        this.searchResult = val
       }
     }
   }
@@ -52,7 +77,7 @@
   .slide-catalog{
     width: 100%;
     height: 100%;
-    .slide-catalog-con {
+    .slide-catalog-con, .slide-search-con {
       height: calc(100% - #{px2rem(130)});
       overflow-x: hidden;
       font-size: 0;
@@ -68,9 +93,6 @@
           &:first-child{
             border-top: none;
           }
-          p {
-            @include ellipsis;
-          }
           .selected{
             color: red;
           }
@@ -78,6 +100,22 @@
             li {
               border-top: 1px solid #ddd !important;
             }
+          }
+        }
+      }
+    }
+    .slide-catalog-con{
+      p {
+        @include ellipsis;
+      }
+    }
+    .slide-search-con {
+      height: calc(100% - #{px2rem(55)});
+      ul{
+        li{
+          padding: px2rem(5) 0;
+          p{
+            line-height: px2rem(16);
           }
         }
       }

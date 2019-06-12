@@ -105,6 +105,6 @@ export function getReadTimeByMinute (fileName) {
 }
 
 // 转换目录 navigation
-export function flatten(array) {
+export function flatten (array) {
   return [].concat(...array.map(item => [].concat(item, ...flatten(item.subitems))))
 }
