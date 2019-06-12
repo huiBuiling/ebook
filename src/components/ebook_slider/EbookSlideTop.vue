@@ -54,7 +54,7 @@
     },
     data () {
       return {
-        value: 'computer',
+        value: '',
         // searchVisible: false,
         // searchResult: []
       }
@@ -70,8 +70,8 @@
       onSearch () {
         if(this.value && this.value.length > 0) {
           this.doSearch(this.value).then(result => {
-            console.log(result)
             this.$emit('result', result)
+            this.value = ''
           })
         }
       },

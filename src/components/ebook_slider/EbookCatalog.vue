@@ -12,7 +12,7 @@
     <div class="slide-catalog-con" v-show="!searchVisible">
       <ul>
         <li v-for="(item, index) in navigation" :key="index" :style="{'padding-left': item.parent !== undefined ? `${item.level * 15}px` : 0}">
-          <p @click="goBook(item.href, -1)" :class="{selected: section === index}">{{item.label}}</p>
+          <p @click="goBook(item.href, -1, false)" :class="{selected: section === index}">{{item.label}}</p>
         </li>
       </ul>
     </div>
@@ -21,7 +21,7 @@
     <div class="slide-search-con" v-show="searchVisible">
       <ul>
         <li v-for="(item, index) in searchResult" :key="index">
-          <p @click="goBook(item.cfi, index)" :class="{selected: currentLi === index}">{{item.excerpt}}</p>
+          <p @click="goBook(item.cfi, index, true)" :class="{selected: currentLi === index}">{{item.excerpt}}</p>
         </li>
       </ul>
     </div>
@@ -51,7 +51,7 @@
     },
     methods: {
       // 跳转到指定章节
-      goBook (href, index, highlight = true) {
+      goBook (href, index, highlight) {
         if(index >= 0){
           this.currentLi = index
         }
