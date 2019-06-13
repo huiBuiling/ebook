@@ -7,14 +7,13 @@
 <script>
   import Epub from 'epubjs'
   import { ebookMixin } from '../../utils/mixin'
-  import { flatten } from '../../utils/book'
+  import { flatten, addCss } from '../../utils/book'
   import {
     getFontFamily, saveFontFamily,
     getFontSize, saveFontSize,
     getTheme, saveTheme,
     getLocation
   } from '../../utils/localStorage'
-  import { addCss } from '../../utils/book'
   export default {
     name: 'EbookReader',
     mixins: [ebookMixin],
@@ -127,7 +126,7 @@
             // this.setNavigation(nav.toc)
             const navItem = flatten(nav.toc)
 
-            function find(item, level = 0) {
+            function find (item, level = 0) {
               return !item.parent ? level : find(navItem.filter(parentItem => parentItem.id === item.parent)[0], ++level)
             }
 

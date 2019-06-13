@@ -31,12 +31,12 @@
       // 获取当前章目
       getSectionName () {
         // 只能获取一级目录
-        /*if (this.section) {
+        /* if (this.section) {
           const sectionInfo = this.currentBook.section(this.section)
           if (sectionInfo && sectionInfo.href && this.currentBook && this.currentBook.navigation) {
             return this.currentBook.navigation.get(sectionInfo.href).label
           }
-        }*/
+        } */
         // 获取多级目录
         return this.section ? this.navigation[this.section].label : ''
       }

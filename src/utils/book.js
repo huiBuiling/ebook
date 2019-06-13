@@ -108,3 +108,15 @@ export function getReadTimeByMinute (fileName) {
 export function flatten (array) {
   return [].concat(...array.map(item => [].concat(item, ...flatten(item.subitems))))
 }
+
+// rem适配
+export function px2rem (px) {
+  const ratio = 375 / 10
+  return px / ratio
+}
+
+// 宽度
+export function realPx (px) {
+  const maxWidth = window.innerWidth > 500 ? 500 : window.innerWidth
+  return px * (maxWidth / 375)
+}
