@@ -3,7 +3,7 @@
     <div class="slide-content-wrapper" v-show="menuVisible && settingVisible === 3">
       <transition name="slide-right">
         <div class="content" v-if="settingVisible === 3">
-          <div class="content-page-wrapper">
+          <div class="content-page-wrapper"  v-if="bookAvailable">
             <!--内容-->
             <div class="content-page">
               <ebook-catalog v-show="currentTab === 1" />
@@ -23,6 +23,11 @@
                 {{$t('book.bookmark')}}</div>
             </div>
           </div>
+
+          <!--加载动画-->
+          <div class="content-empty" v-else>
+            <ebook-loading></ebook-loading>
+          </div>
         </div>
       </transition>
       <!--遮罩层-->
@@ -38,11 +43,13 @@
    * @Description: 侧边栏
   */
   import EbookCatalog from './EbookCatalog'
+  import EbookLoading from './EbookLoading'
   import { ebookMixin } from '../../utils/mixin'
   export default {
     name: 'EbookSlider',
     components: {
-      EbookCatalog
+      EbookCatalog,
+      EbookLoading
     },
     mixins: [ ebookMixin ],
     data () {
@@ -95,6 +102,11 @@
             @include center;
           }
         }
+      }
+      .content-empty {
+        width: 100%;
+        height: 100%;
+        @include center;
       }
     }
     .content-bg{

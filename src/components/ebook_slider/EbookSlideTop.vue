@@ -54,9 +54,7 @@
     },
     data () {
       return {
-        value: '',
-        // searchVisible: false,
-        // searchResult: []
+        value: ''
       }
     },
     methods: {
@@ -68,7 +66,7 @@
       },
       // 搜索
       onSearch () {
-        if(this.value && this.value.length > 0) {
+        if (this.value && this.value.length > 0) {
           this.doSearch(this.value).then(result => {
             this.$emit('result', result)
             this.value = ''
