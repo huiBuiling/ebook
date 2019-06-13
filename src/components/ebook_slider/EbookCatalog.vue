@@ -52,7 +52,7 @@
     methods: {
       // 跳转到指定章节
       goBook (href, index, highlight) {
-        if(index >= 0){
+        if (index >= 0) {
           this.currentLi = index
         }
         this.display(href, () => {
@@ -113,6 +113,7 @@
       height: calc(100% - #{px2rem(55)});
       ul{
         li{
+          min-height: 0;
           padding: px2rem(5) 0;
           p{
             line-height: px2rem(16);
