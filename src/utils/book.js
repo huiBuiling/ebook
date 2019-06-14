@@ -1,4 +1,4 @@
-import { getReadTime } from './localStorage'
+import { getReadTime,getLocale } from './localStorage'
 
 // 字号
 export const FONT_SIZE_LIST = [
@@ -97,10 +97,20 @@ export function removeAllCss () {
 // 阅读时间（分钟）
 export function getReadTimeByMinute (fileName) {
   const readTime = getReadTime(fileName)
+  let text = !getLocale() ? 'minutes' : '分钟'
   if (!readTime) {
-    return 0
-  } else {
-    return Math.ceil(readTime / 60)
+    return 0 + text
+  } else if (readTime > 0 && readTime < 60) {
+    // 分
+    return Math.ceil(readTime / 60) + text
+  } else if (readTime > 60 && readTime < 24*60) {
+    // 时
+    text = !getLocale() ? 'hour':'小时'
+    return Math.ceil(readTime / 60 / 60) + text
+  } else if (readTime > 24*60) {
+    // 天
+    text = !getLocale() ? 'day':'天'
+    return Math.ceil(readTime / 60 / 60 / 24) + text
   }
 }
 

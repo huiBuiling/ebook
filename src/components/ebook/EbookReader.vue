@@ -1,6 +1,9 @@
 <template>
-  <div class="e-reader">
+  <div class="ebook-reader">
     <div id="read"></div>
+
+    <!--书签配合蒙版方式实现-->
+    <div class="ebook-reader-mask" @click="onMask"></div>
   </div>
 </template>
 
@@ -32,7 +35,8 @@
         this.setCurrentBook(this.book)
 
         this.initRendition()
-        this.initGesture()
+        // 手势移动设置书签不可行
+        // this.initGesture()
         this.initParseBook()
 
         // 分页
@@ -218,11 +222,39 @@
         }
         this.setTitleVisible(!this.titleVisible)
         this.setMenuVisible(!this.menuVisible)
+      },
+      // 蒙版操作
+      onMask (e) {
+        console.log(e);
+        const offsetX = e.offsetX
+        const width = window.innerWidth
+        if (offsetX > 0 && offsetX < width * 0.3) {
+          this.prevPage()
+        } else if (offsetX > 0 && offsetX > width * 0.7) {
+          this.nextPage()
+        }else{
+          this.toggleTitleAndMenu()
+        }
       }
     }
   }
 </script>
 
 <style scoped lang="scss">
-
+  @import "../../assets/css/global";
+  .ebook-reader{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    .ebook-reader-mask{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.1);
+      z-index: 200;
+      opacity: 0;
+    }
+  }
 </style>
