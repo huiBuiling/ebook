@@ -1,9 +1,9 @@
 <template>
   <div class="ebook-reader">
-    <div id="read"></div>
-
     <!--书签配合蒙版方式实现-->
     <div class="ebook-reader-mask" @click="onMask"></div>
+
+     <div id="read"></div>
   </div>
 </template>
 
@@ -29,7 +29,7 @@
     methods: {
       initEpub () {
         // 渲染书籍
-        const baseUrl = `${process.env.VUE_APP_RES_URL}/epub/LifeSciences/${this.fileName}.epub`
+        const baseUrl = `${process.env.VUE_APP_RES_URL}/epub/Biomedicine/${this.fileName}.epub`
         // 配置路径
         this.book = new Epub(baseUrl)
         this.setCurrentBook(this.book)
@@ -168,7 +168,7 @@
             addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_eye.css`)
             break
           case 'Night':
-            addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_night.css`)
+            addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_night.min.css`)
             break
           default:
             addCss(`${process.env.VUE_APP_RES_URL}/theme/theme_default.css`)
@@ -225,14 +225,13 @@
       },
       // 蒙版操作
       onMask (e) {
-        console.log(e);
         const offsetX = e.offsetX
         const width = window.innerWidth
         if (offsetX > 0 && offsetX < width * 0.3) {
           this.prevPage()
         } else if (offsetX > 0 && offsetX > width * 0.7) {
           this.nextPage()
-        }else{
+        } else {
           this.toggleTitleAndMenu()
         }
       }
@@ -248,12 +247,12 @@
     overflow: hidden;
     .ebook-reader-mask{
       position: absolute;
+      z-index: 150;
       left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       background: rgba(0, 0, 0, 0.1);
-      z-index: 200;
       opacity: 0;
     }
   }

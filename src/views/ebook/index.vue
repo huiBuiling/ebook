@@ -22,20 +22,20 @@
     mixins: [ebookMixin],
     methods: {
       startLoopReadTime () {
-      let readTime = getReadTime(this.fileName)
-      if (!readTime) {
-        readTime = 0
-      }
-
-      // 开启定时器，每秒
-      this.task = setInterval(() => {
-        readTime++
-        // 已读30秒倍数，保存一次
-        if (readTime % 30 === 0) {
-          saveReadTime(this.fileName, readTime)
+        let readTime = getReadTime(this.fileName)
+        if (!readTime) {
+          readTime = 0
         }
-      }, 1000)
-    }
+
+        // 开启定时器，每秒
+        this.task = setInterval(() => {
+          readTime++
+          // 已读30秒倍数，保存一次
+          if (readTime % 30 === 0) {
+            saveReadTime(this.fileName, readTime)
+          }
+        }, 1000)
+      }
     },
     mounted () {
       this.startLoopReadTime()

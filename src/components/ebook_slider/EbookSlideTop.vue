@@ -1,7 +1,8 @@
 <template>
   <div class="content-page-top">
+    <!-- search -->
     <div class="page-top-search">
-      <div>
+      <div class="page-top-search-input">
         <i class="icon-search"/>
 
         <!--@change="onSearch"-->
@@ -15,19 +16,21 @@
       </div>
       <span v-show="searchVisible" class="cancal" @click="hideCancel">{{$t('book.cancel')}}</span>
     </div>
+
     <div class="page-top-con" v-show="!searchVisible">
       <div class="page-top-con-l">
         <img :src="cover" :alt="fileName">
       </div>
       <div class="page-top-con-c" v-if="metadata">
-        <p class="e-title">{{metadata.title}}</p>
-        <p class="e-creator">{{metadata.creator}}</p>
-      </div>
-      <div class="page-top-con-r">
-        <p>已读{{progress}}%</p>
-        <p>{{getReadTimeText}}</p>
+        <p class="page-title">{{metadata.title}}</p>
+        <div class="page-msg">
+          <span>{{getReadProgress}}%</span>
+          <span class="page-msg-bor"> | </span>
+          <span>{{getReadTimeText}}</span>
+        </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -43,9 +46,13 @@
     name: 'EbookSliderTop',
     mixins: [ ebookMixin ],
     computed: {
+      // 获取阅读进度
+      getReadProgress () {
+        return this.$t('book.haveRead').replace('$1', this.progress)
+      },
       // 获取阅读时间
       getReadTimeText () {
-        return this.$t('book.haveRead').replace('$1', getReadTimeByMinute(this.fileName))
+        return getReadTimeByMinute(this.fileName)
       }
     },
     props: {
@@ -92,8 +99,7 @@
 
   .content-page-top{
     width: 100%;
-    max-height: px2rem(120);
-    border-bottom: 1px solid #ddd;
+    max-height: px2rem(150);
     .page-top-search{
       padding: px2rem(5);
       margin: px2rem(5);
@@ -138,35 +144,31 @@
         margin-left: px2rem(10);
         flex: 0 0 px2rem(45);
         img{
-          width: px2rem(45);
-          height: px2rem(60);
+          width: px2rem(40);
+          height: px2rem(50);
         }
       }
       .page-top-con-c{
         flex: 1;
         padding: 0 px2rem(7);
         width: calc(100% - #{px2rem(173)});
-        .e-title{
+        .page-title{
           @include ellipsis;
           font-size: px2rem(14);
           margin-bottom: px2rem(7);
         }
-        .e-creator{
-          line-height: px2rem(14);
-          font-size: px2rem(12);
-          &:last-child{
-            @include ellipsis2(2);
+        .page-msg{
+          margin-right: px2rem(10);
+          flex: 0 0 px2rem(75);
+          line-height: px2rem(15);
+          span {
+            display: inline-block;
+            font-size: px2rem(12);
+            white-space: nowrap;
+            &.page-msg-bor{
+              margin: 0 px2rem(10);
+            }
           }
-        }
-      }
-      .page-top-con-r{
-        margin-right: px2rem(10);
-        flex: 0 0 px2rem(75);
-        p {
-          width: px2rem(75);
-          font-size: px2rem(12);
-          white-space: nowrap;
-          line-height: px2rem(20);
         }
       }
     }

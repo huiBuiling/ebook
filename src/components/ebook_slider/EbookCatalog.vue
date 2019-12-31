@@ -87,18 +87,15 @@
         padding-left: px2rem(10);
         li {
           width: 100%;
-          min-height: px2rem(30);
-          line-height: px2rem(30);
+          min-height: px2rem(60);
+          line-height: px2rem(60);
           border-top: 1px solid #ddd;
           &:first-child{
             border-top: none;
           }
-          .selected{
-            color: red;
-          }
           ul {
             li {
-              border-top: 1px solid #ddd !important;
+              border-top: 1px solid #3a3f50 !important;
             }
           }
         }

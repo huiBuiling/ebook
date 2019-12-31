@@ -29,7 +29,7 @@ export function themeList (vue) {
       style: {
         body: {
           'color': '#666666',
-          'background': '#ECF6FF'
+          'background': '#ffffff'
         }
       }
     },
@@ -59,7 +59,7 @@ export function themeList (vue) {
       style: {
         body: {
           'color': '#cecece',
-          'background': '#383C4A'
+          'background': '#1C2842'
         }
       }
     }

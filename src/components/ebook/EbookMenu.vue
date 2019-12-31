@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="opera-wrapper">
     <transition name="slide-up">
       <div class="menu-wrapper" v-show="menuVisible" :class="{'hide-box-shadow': !menuVisible || settingVisible >= 0}">
         <div class="icons">

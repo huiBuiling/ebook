@@ -58,9 +58,13 @@
         padding: px2rem(5);
         box-sizing: border-box;
         .preview {
-          flex: 1;
+          // flex: 1;
+          width: 50px;
+          height: 50px;
+          margin: 10px auto;
           border: px2rem(1) solid #ccc;
           box-sizing: border-box;
+          border-radius: 100%;
           &.selected {
             box-shadow: 0 px2rem(4) px2rem(6) 0 rgba(0, 0, 0, .1);
           }

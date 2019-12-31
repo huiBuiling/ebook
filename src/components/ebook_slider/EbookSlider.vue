@@ -98,7 +98,8 @@
           height: px2rem(48);
           .content-page-tab-item{
             flex: 1;
-            font-size: px2rem(12);
+            font-size: px2rem(14);
+            font-weight: 600;
             @include center;
           }
         }
